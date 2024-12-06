@@ -1,0 +1,17 @@
+-- Create users table
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    role TEXT NOT NULL  -- Role is either 'admin' or 'customer'
+);
+
+-- Create reviews table
+CREATE TABLE IF NOT EXISTS reviews (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    restaurant_name TEXT NOT NULL,
+    review TEXT NOT NULL,
+    rating INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 5),
+    customer TEXT NOT NULL,
+    FOREIGN KEY (customer) REFERENCES users(username) ON DELETE CASCADE
+);
